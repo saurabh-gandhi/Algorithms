@@ -1,30 +1,23 @@
-import random
+def swap(A, i, j):
+    A[i], A[j] = A[j], A[i]
 
 
-def quicksort(aList):
-    _quicksort(aList, 0, len(aList) - 1)
+def partition(aList, l, r):
+    p = aList[l]
+    i = l + 1
+    for j in range(l + 1, r + 1):
+        if aList[j] < p:
+            swap(aList, i, j)
+            i = i + 1
+    swap(aList, l, i - 1)
+    return i - 1
 
 
-def _quicksort(aList, first, last):
-    if first < last:
-        pivot = partition(aList, first, last)
-        _quicksort(aList, first, pivot - 1)
-        _quicksort(aList, pivot + 1, last)
-
-
-def partition(aList, first, last):
-    pivot = first + random.randrange(last - first + 1)
-    swap(aList, pivot, last)
-    for i in range(first, last):
-        if aList[i] <= aList[last]:
-            swap(aList, i, first)
-            first += 1
-
-    swap(aList, first, last)
-    return first
-
-
-def swap(A, x, y):
-    A[x], A[y] = A[y], A[x]
+def quick_sort(aList, l, r):
+    if l < r:
+        p = partition(aList, l, r)
+        quick_sort(aList, l, p - 1)
+        quick_sort(aList, p + 1, r)
 aList = [54, 26, 93, 17, 77]
-quick_sort(aList)
+quick_sort(aList, 0, 4)
+print aList
